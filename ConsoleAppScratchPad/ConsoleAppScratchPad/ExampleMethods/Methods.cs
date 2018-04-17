@@ -26,7 +26,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
                     v = e.Current;
                     Console.WriteLine(v.FirstName + v.LastName);
                 }
-                
+
             }
             finally
             {
@@ -59,7 +59,25 @@ namespace ConsoleAppScratchPad.ExampleMethods
                 if (d != null) d.Dispose();
             }
         }
+    }
 
+    class Delegates
+    {
+        #region Listing 1-75
+        public delegate int Calculate(int x, int y);
+
+        public int Add(int x, int y) { return x + y; }
+        public int Multiply(int x, int y) { return x * y; }
+
+        public void UseDelegate()
+        {
+            Calculate calc = Add;
+            Console.WriteLine(calc(3, 4));
+
+            calc = Multiply;
+            Console.WriteLine(calc(3, 4));
+        }
+        #endregion
     }
 
 
