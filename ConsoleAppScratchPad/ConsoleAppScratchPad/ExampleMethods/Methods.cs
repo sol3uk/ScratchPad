@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -124,7 +125,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
 
     class Events
     {
-        #region 1-82
+        #region Listing 1-82
         public class Pub
         {
             public Action OnChange { get; set; }
@@ -153,7 +154,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
         }
         #endregion
 
-        #region 1-83
+        #region Listing 1-83
         public class PubEventKeyword
         {
             public event Action OnChange = delegate { };
@@ -174,7 +175,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
         }
         #endregion
 
-        #region 1-84
+        #region Listing 1-84
         public class MyArgs : EventArgs
         {
             public MyArgs(int value)
@@ -204,7 +205,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
         }
         #endregion
 
-        #region 1-85
+        #region Listing 1-85
         public class PubCustomEventAccessors
         {
             private event EventHandler<MyArgs> onChange = delegate { };
@@ -295,5 +296,71 @@ namespace ConsoleAppScratchPad.ExampleMethods
         }
         #endregion
 
+    }
+
+    class Exceptions
+    {
+        //Generic Exception Log
+        private void Log(Exception logEx)
+        {
+            Console.WriteLine("Exception Logged");
+        }
+
+        #region Listing 1-94
+        public static string OpenAndParse(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentNullException("fileName", "Filename is required");
+
+            return File.ReadAllText(fileName);
+        }
+        #endregion
+
+        #region Listing 1-95
+        public void ReThrowOriginalException()
+        {
+            try
+            {
+                OpenAndParse(null);
+            }
+            catch (Exception logEx)
+            {
+                Log(logEx);
+                throw; //This re-throws the original Exception without altering anything, this preserves the stack trace.
+            }
+        }
+
+        #endregion
+
+        #region Custom Version of Listing 1-95
+        public void ReThrowSameException()
+        {
+            try
+            {
+                OpenAndParse(null);
+            }
+            catch (Exception logEx)
+            {
+                Log(logEx);
+                throw logEx; //This re-throws the same Exception but inside the catch block, it resets the stack trace and makes it HARDER to debug...
+            }
+        }
+        #endregion
+
+        #region Listing 1-96
+        public void ThrowNewException()
+        {
+            try
+            {
+                OpenAndParse(null);
+            }
+            catch (Exception ex)
+            {
+                //This throws a brand new exception whislt pointing to the existing exception, preserving the stack trace
+                //This makes it EASIER to debug, because you can provide additional info about what happened.
+                throw new ArgumentNullException("Error getting file", ex);
+            }
+        }
+        #endregion
     }
 }
