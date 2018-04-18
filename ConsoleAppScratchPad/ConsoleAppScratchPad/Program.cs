@@ -35,6 +35,7 @@ namespace ConsoleAppScratchPad
             exceptions.ReThrowOriginalException();
             exceptions.ReThrowSameException();
             exceptions.ThrowNewException();
+            exceptions.UseExceptionDispatch();
 
 
 

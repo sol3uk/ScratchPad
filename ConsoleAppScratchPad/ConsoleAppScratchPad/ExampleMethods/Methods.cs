@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -361,6 +363,75 @@ namespace ConsoleAppScratchPad.ExampleMethods
                 throw new ArgumentNullException("Error getting file", ex);
             }
         }
+        #endregion
+
+        #region Listing 1-97
+        public void UseExceptionDispatch()
+        {
+            ExceptionDispatchInfo possibleException = null;
+
+            try
+            {
+                string s = Console.ReadLine();
+                int.Parse(s);
+            }
+            catch (FormatException ex)
+            {
+                possibleException = ExceptionDispatchInfo.Capture(ex);
+            }
+
+            if (possibleException != null)
+            {
+                possibleException.Throw();
+            }
+        }
+        #endregion
+
+        #region Listing 1-98
+        //Example of implementing custom exception
+        [Serializable]
+        public class OrderProcessingException : Exception, ISerializable
+        {
+            public OrderProcessingException(int orderId)
+            {
+                OrderId = orderId;
+                this.HelpLink = "Link to more info";
+            }
+            public OrderProcessingException(int orderId, string message) : base(message)
+            {
+                OrderId = orderId;
+                this.HelpLink = "Link to more info";
+            }
+
+            public OrderProcessingException(int orderId, string message, Exception innerException) : base(message, innerException)
+            {
+                OrderId = orderId;
+                this.HelpLink = "Link to more info";
+            }
+
+            protected void EntityOperationException(SerializationInfo info, StreamingContext context)
+            {
+                OrderId = (int)info.GetValue("OrderId", typeof(int));
+            }
+
+            public int OrderId { get; set; }
+
+            public int entityId { get; set; }
+
+            public override void GetObjectData(SerializationInfo info, StreamingContext context)
+            {
+                base.GetObjectData(info, context);
+                info.AddValue("entityId", entityId, typeof(int));
+            }
+        }
+
+        public void ThrowTestExceptions()
+        {
+            throw new OrderProcessingException(5);
+            throw new OrderProcessingException(5, "Custom Error Message");
+            throw new OrderProcessingException(5, "Custom Error Message", new Exception().InnerException);
+        }
+
         #endregion
     }
 }
