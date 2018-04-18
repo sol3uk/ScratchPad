@@ -8,6 +8,40 @@ namespace ConsoleAppScratchPad.ExampleMethods
 {
     class Itteration
     {
+        public class Person
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        #region Custom Version of Listing 1-72
+        public void PersonItteratorForEach()
+        {
+            var people = new List<Person>
+            {
+                new Person() { FirstName = "Ben", LastName = "Ashley" },
+                new Person() { FirstName = "Nathan", LastName = "Ashley" },
+            };
+
+            List<Person>.Enumerator e = people.GetEnumerator();
+
+            try
+            {
+                foreach (Person p in people)
+                {
+                    p.FirstName = "bob";
+                    Console.WriteLine(p.FirstName + p.LastName);
+                }
+            }
+            finally
+            {
+                System.IDisposable d = e as System.IDisposable;
+                if (d != null) d.Dispose();
+            }
+        }
+        #endregion
+
+        #region Listing 1-73
         public void PersonItterator()
         {
             var people = new List<Person>
@@ -34,31 +68,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
                 if (d != null) d.Dispose();
             }
         }
-
-        public void PersonItteratorForEach()
-        {
-            var people = new List<Person>
-            {
-                new Person() { FirstName = "Ben", LastName = "Ashley" },
-                new Person() { FirstName = "Nathan", LastName = "Ashley" },
-            };
-
-            List<Person>.Enumerator e = people.GetEnumerator();
-
-            try
-            {
-                foreach (Person p in people)
-                {
-                    p.FirstName = "bob";
-                    Console.WriteLine(p.FirstName + p.LastName);
-                }
-            }
-            finally
-            {
-                System.IDisposable d = e as System.IDisposable;
-                if (d != null) d.Dispose();
-            }
-        }
+        #endregion
     }
 
     class Delegates
@@ -151,6 +161,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
             public void Raise()
             {
                 OnChange();
+                Console.WriteLine("OnChange Invoked");
             }
         }
 
@@ -162,12 +173,127 @@ namespace ConsoleAppScratchPad.ExampleMethods
             p.Raise();
         }
         #endregion
-    }
 
+        #region 1-84
+        public class MyArgs : EventArgs
+        {
+            public MyArgs(int value)
+            {
+                Value = value;
+            }
+            public int Value { get; set; }
+        }
 
-    public class Person
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public class PubEventArgs
+        {
+            public event EventHandler<MyArgs> OnChange = delegate { };
+
+            public void Raise()
+            {
+                OnChange(this, new MyArgs(42));
+                Console.WriteLine("OnChange Invoked");
+            }
+        }
+
+        public void CreateAndRaiseEventArgs()
+        {
+            PubEventArgs p = new PubEventArgs();
+            p.OnChange += (sender, e) 
+                => Console.WriteLine("Event raised: {0}", e.Value);
+            p.Raise();
+        }
+        #endregion
+
+        #region 1-85
+        public class PubCustomEventAccessors
+        {
+            private event EventHandler<MyArgs> onChange = delegate { };
+            public event EventHandler<MyArgs> OnChange
+            {
+                add
+                {
+                    lock (onChange)
+                    {
+                        onChange += value;
+                        Console.WriteLine("Add Subscriber Invoked");
+                    }
+                }
+                remove
+                {
+                    lock (onChange)
+                    {
+                        onChange -= value;
+                        Console.WriteLine("Remove Subscriber Invoked");
+                    }
+                }
+            }
+
+            public void Raise()
+            {
+                onChange(this, new MyArgs(420));
+                Console.WriteLine("onChange Invoked");
+            }
+        }
+
+        public void CreateAndRaiseCustomEventAccessors()
+        {
+            PubCustomEventAccessors p = new PubCustomEventAccessors();
+            p.OnChange += (sender, e)
+                => Console.WriteLine("Event raised: {0}", e.Value);
+            p.Raise();
+        }
+        #endregion
+
+        #region Listing 1-87
+        public class PubEventExceptions
+        {
+            public event EventHandler OnChange = delegate { };
+            public void Raise()
+            {
+                var exceptions = new List<Exception>();
+
+                foreach (Delegate handler in OnChange.GetInvocationList())
+                {
+                    try
+                    {
+                        handler.DynamicInvoke(this, EventArgs.Empty);
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptions.Add(ex);
+                    }
+                }
+
+                if (exceptions.Any())
+                {
+                    throw new AggregateException(exceptions);
+                }
+            }
+        }
+
+        public void CreateAndRaiseEventExceptions()
+        {
+            PubEventExceptions p = new PubEventExceptions();
+
+            p.OnChange += (sender, e)
+                => Console.WriteLine("Subscriber 1 called");
+
+            p.OnChange += (sender, e)
+                => { throw new Exception(); };
+
+            p.OnChange += (sender, e)
+                => Console.WriteLine("Subscriber 3 called");
+
+            try
+            {
+                p.Raise();
+            }
+            catch (AggregateException ex)
+            {
+                Console.WriteLine(ex.InnerExceptions.Count);
+            }
+        }
+        #endregion
+
     }
 }
