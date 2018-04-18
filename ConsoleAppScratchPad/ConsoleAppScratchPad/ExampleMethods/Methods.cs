@@ -78,9 +78,91 @@ namespace ConsoleAppScratchPad.ExampleMethods
             Console.WriteLine(calc(3, 4));
         }
         #endregion
+
+        #region Listing 1-76
+        public void MethodOne()
+        {
+            Console.WriteLine("MethodOne");
+        }
+        public void MethodTwo()
+        {
+            Console.WriteLine("MethodTwo");
+        }
+
+        public delegate void Del();
+
+        public void Multicast()
+        {
+            Del d = MethodOne;
+            d += MethodTwo;
+
+            d();
+        }
+        #endregion
+
+        #region Listing 1-79
+        public void UseDelegateLambda()
+        {
+            Calculate calc = (x, y) => x + y;
+            Console.WriteLine(calc(3, 4));
+
+            calc = (x, y) => x * y;
+            Console.WriteLine(calc(3, 4));
+        }
+        #endregion
     }
 
+    class Events
+    {
+        #region 1-82
+        public class Pub
+        {
+            public Action OnChange { get; set; }
 
+            public void Raise()
+            {
+                //Listings Example
+                //if (OnChange != null)
+                //{
+                //    OnChange();
+                //}
+
+                //Simplified
+                OnChange?.Invoke();
+                Console.WriteLine("OnChange Invoked");
+
+            }
+        }
+
+        public void CreateAndRaise()
+        {
+            Pub p = new Pub();
+            p.OnChange += () => Console.WriteLine("Event raised to method 1");
+            p.OnChange += () => Console.WriteLine("Event raised to method 2");
+            p.Raise();
+        }
+        #endregion
+
+        #region 1-83
+        public class PubEventKeyword
+        {
+            public event Action OnChange = delegate { };
+
+            public void Raise()
+            {
+                OnChange();
+            }
+        }
+
+        public void CreateAndRaiseEventKeyword()
+        {
+            PubEventKeyword p = new PubEventKeyword();
+            p.OnChange += () => Console.WriteLine("Event raised to method 1");
+            p.OnChange += () => Console.WriteLine("Event raised to method 2");
+            p.Raise();
+        }
+        #endregion
+    }
 
 
     public class Person

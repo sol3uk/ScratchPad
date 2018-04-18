@@ -11,14 +11,18 @@ namespace ConsoleAppScratchPad
     {
         static void Main(string[] args)
         {
-            //Itteration Method Calls
-            var methods = new Itteration();
-            methods.PersonItterator();
-            methods.PersonItteratorForEach();
+            ////Itteration Method Calls
+            //var methods = new Itteration();
+            //methods.PersonItterator();
+            //methods.PersonItteratorForEach();
 
-            //Delegation Method Calls
-            var delegates = new Delegates();
-            delegates.UseDelegate();
+            ////Delegation Method Calls
+            //var delegates = new Delegates();
+            //delegates.UseDelegate();
+
+            //Event Method Calls
+            var events = new Events();
+            events.CreateAndRaise();
 
             Console.Read();
         }
