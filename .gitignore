@@ -1,3 +1,6 @@
+# Bin folder and subfolders
+bin/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
