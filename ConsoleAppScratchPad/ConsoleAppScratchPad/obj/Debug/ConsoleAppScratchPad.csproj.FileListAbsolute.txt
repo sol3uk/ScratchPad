@@ -1,6 +1,0 @@
-C:\Code\ConsoleAppScratchPad\ConsoleAppScratchPad\bin\Debug\ConsoleAppScratchPad.exe.config
-C:\Users\Ben\Source\Repos\Code\ConsoleAppScratchPad\ConsoleAppScratchPad\bin\Debug\ConsoleAppScratchPad.exe.config
-C:\Users\Ben\Source\Repos\Code\ConsoleAppScratchPad\ConsoleAppScratchPad\bin\Debug\ConsoleAppScratchPad.exe
-C:\Users\Ben\Source\Repos\Code\ConsoleAppScratchPad\ConsoleAppScratchPad\bin\Debug\ConsoleAppScratchPad.pdb
-C:\Users\Ben\Source\Repos\Code\ConsoleAppScratchPad\ConsoleAppScratchPad\obj\Debug\ConsoleAppScratchPad.exe
-C:\Users\Ben\Source\Repos\Code\ConsoleAppScratchPad\ConsoleAppScratchPad\obj\Debug\ConsoleAppScratchPad.pdb
