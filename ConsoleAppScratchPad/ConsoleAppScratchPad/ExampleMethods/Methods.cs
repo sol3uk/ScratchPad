@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleAppScratchPad.ExampleMethods
@@ -122,6 +123,40 @@ namespace ConsoleAppScratchPad.ExampleMethods
             calc = (x, y) => x * y;
             Console.WriteLine(calc(3, 4));
         }
+        #endregion
+
+        #region Video Encoding Example
+
+        public class VideoEventArgs : EventArgs
+        {
+            public Video Video { get; set; }
+        }
+
+        public class VideoEncoder
+        {
+            // 1 Define delegate
+            // 2 Define an event based on the delegate
+            // 3 Raise the event
+
+            public delegate void VideoEncodedEventHandler(object source, VideoEventArgs args);
+
+            public event VideoEncodedEventHandler VideoEncoded;
+                    
+
+            public void Encode(Video video)
+            {
+                Console.WriteLine("Encoding video...");
+                Thread.Sleep(3000);
+
+                OnVideoEncoded(video);
+            }
+
+            protected virtual void OnVideoEncoded(Video video)
+            {
+                VideoEncoded?.Invoke(this, new VideoEventArgs() { Video = video });
+            }
+        }
+
         #endregion
     }
 
