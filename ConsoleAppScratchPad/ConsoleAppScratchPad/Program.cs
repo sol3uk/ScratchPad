@@ -13,6 +13,7 @@ namespace ConsoleAppScratchPad
         static void Main(string[] args)
         {
             //Other Examples
+            //Video Encoder Example
             var video = new Video() { Title = "Video 1" };
             var videoEncoder = new Delegates.VideoEncoder(); //Publisher
             var mailService = new MailService(); //Subscriber
@@ -21,6 +22,13 @@ namespace ConsoleAppScratchPad
             videoEncoder.VideoEncoded += mailService.OnVideoEncoded;
             videoEncoder.VideoEncoded += messageService.OnVideoEncoded;
             videoEncoder.Encode(video);
+            //Anonymous Methods & Lambda Expressions
+            var other = new Other();
+            var result = other.func(2, 3); //done with anon method
+            Console.WriteLine(result);
+            result = other.func2(3, 4); //done with lambda
+            Console.WriteLine(result);
+
 
             //1.3 Itteration Method Calls
             var methods = new Itteration();

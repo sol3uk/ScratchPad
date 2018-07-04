@@ -469,4 +469,14 @@ namespace ConsoleAppScratchPad.ExampleMethods
 
         #endregion
     }
+
+    class Other
+    {
+        public Func<int, int, int> func = delegate (int x, int y)
+        {
+            return x + y;
+        };
+
+        public Func<int, int, int> func2 = (x, y) => x + y;
+    }
 }
