@@ -5,12 +5,13 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleAppScratchPad.ExampleMethods
 {
-    class Itteration
+    public class Itteration
     {
         public class Person
         {
@@ -75,7 +76,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
         #endregion
     }
 
-    class Delegates
+    public class Delegates
     {
         #region Listing 1-75
         public delegate int Calculate(int x, int y);
@@ -160,7 +161,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
         #endregion
     }
 
-    class Events
+    public class Events
     {
         #region Listing 1-82
         public class Pub
@@ -335,7 +336,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
 
     }
 
-    class Exceptions
+    public class Exceptions
     {
         //Generic Exception Log
         private void Log(Exception logEx)
@@ -470,13 +471,29 @@ namespace ConsoleAppScratchPad.ExampleMethods
         #endregion
     }
 
-    class Other
+    public class Validation
     {
-        public Func<int, int, int> func = delegate (int x, int y)
+        #region Listing 3-10
+        public static bool ValidateZipCodeRegEx(string zipCode)
+        {
+            Match match = Regex.Match(zipCode, @"^[1-9][0-9]{3}\s?[a-zA-Z]{2}$", RegexOptions.IgnoreCase);
+            return match.Success;
+        }
+        #endregion
+    }
+
+    public class Other
+    {
+        public Func<int, int, int> addWithAnon = delegate (int x, int y)
         {
             return x + y;
         };
 
-        public Func<int, int, int> func2 = (x, y) => x + y;
+        public Func<int, int, int> addWithLambda = (x, y) => x + y;
+
+        public Func<int, int, int> ignoreParasPrintZero = delegate
+        {
+            return 0;
+        };
     }
 }
