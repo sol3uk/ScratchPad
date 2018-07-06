@@ -57,11 +57,18 @@ namespace ConsoleAppScratchPad
             exceptions.ThrowNewException();
             exceptions.UseExceptionDispatch();
 
+            //2.7 Manipulate Strings
+            var manipulateStrings = new manipulateStrings();
+            var stringsResult = manipulateStrings.makeSomeXML();
+            Console.WriteLine(stringsResult);
+
             //3.1 Validate Input
             var validation = new Validation();
             var validationResult = Validation.ValidateZipCodeRegEx("1054 CH");
             Console.WriteLine(validationResult);
-
+            validation.RegexReplaceSpaces();
+            validationResult = Validation.IsJson("[ I may not be a JSON but I sure look like one ]");
+            Console.WriteLine(validationResult);
 
 
             //Console.Read();

@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace ConsoleAppScratchPad.ExampleMethods
 {
@@ -142,7 +143,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
             public delegate void VideoEncodedEventHandler(object source, VideoEventArgs args);
 
             public event VideoEncodedEventHandler VideoEncoded;
-                    
+
 
             public void Encode(Video video)
             {
@@ -237,7 +238,7 @@ namespace ConsoleAppScratchPad.ExampleMethods
         public void CreateAndRaiseEventArgs()
         {
             PubEventArgs p = new PubEventArgs();
-            p.OnChange += (sender, e) 
+            p.OnChange += (sender, e)
                 => Console.WriteLine("Event raised: {0}", e.Value);
             p.Raise();
         }
@@ -318,7 +319,8 @@ namespace ConsoleAppScratchPad.ExampleMethods
                 => Console.WriteLine("Subscriber 1 called");
 
             p.OnChange += (sender, e)
-                => { throw new Exception(); };
+                =>
+            { throw new Exception(); };
 
             p.OnChange += (sender, e)
                 => Console.WriteLine("Subscriber 3 called");
@@ -471,14 +473,56 @@ namespace ConsoleAppScratchPad.ExampleMethods
         #endregion
     }
 
+    public class manipulateStrings
+    {
+        #region Listing 2-89 StringWriter and XmlWriter
+        public string makeSomeXML()
+        {
+            var stringWriter = new StringWriter();
+            using (XmlWriter writer = XmlWriter.Create(stringWriter))
+            {
+                writer.WriteStartElement("book");
+                writer.WriteElementString("price", "19.95");
+                writer.WriteEndElement();
+                writer.Flush();
+            }
+            return stringWriter.ToString();
+            }
+        #endregion
+    }
+
     public class Validation
     {
-        #region Listing 3-10
+        #region Listing 3-10 Validate Dutch Zip Code
         public static bool ValidateZipCodeRegEx(string zipCode)
         {
             Match match = Regex.Match(zipCode, @"^[1-9][0-9]{3}\s?[a-zA-Z]{2}$", RegexOptions.IgnoreCase);
             return match.Success;
         }
+        #endregion
+
+        #region Listing 3-11 Remove Spaces
+        public void RegexReplaceSpaces()
+        {
+            RegexOptions options = RegexOptions.None;
+            Regex regex = new Regex(@"[ ]{2,}", options);
+
+            string input = "1 2 3 4    5";
+            string result = regex.Replace(input, " ");
+
+            Console.WriteLine(result);
+        }
+        #endregion
+
+        #region Listing 3-12 Is This JSON?
+        public static bool IsJson(string input)
+        {
+            //Only checking the start and end of the string, not if the input can be parsed as JSON.
+            input = input.Trim();
+            return input.StartsWith("{") && input.EndsWith("}")
+                || input.StartsWith("[") && input.EndsWith("]");
+        }
+
         #endregion
     }
 
