@@ -39,14 +39,13 @@ public class AdventTests
         }
 
         Console.WriteLine("HighestElfCalories : " + highestElfCalories);
-        Assert.AreEqual(highestElfCalories, 69310);
+        Assert.That(highestElfCalories.Equals(69310));
     }
     
     [Test]
     public void Day1_Part2()
     {
         var puzzleInput = new Day1CalorieCounting();
-        var elfNumber = 1;
         var allElfCalories = new List<int>();
         var currentElfCalories = 0;
         var totalLines = puzzleInput.Calories.Count;
@@ -63,13 +62,18 @@ public class AdventTests
             {
                 allElfCalories.Add(currentElfCalories);
 
-                Console.WriteLine("Total For Elf #" + elfNumber + " : " + currentElfCalories);
                 currentElfCalories = 0;
-                elfNumber++;
             }
         }
 
-        Console.WriteLine("HighestElfCalories : " + allElfCalories.MaxBy(x => x));
-        Assert.Pass();
+        
+        allElfCalories.OrderByDescending(x => x)
+            .Take(3).ToList().ForEach(i => Console.Write("{0}\t", i));
+        
+        var top3ElfCalorieTotal = allElfCalories.OrderByDescending(x => x)
+            .Take(3)
+            .Sum();
+        Console.WriteLine("HighestElfCalories : " + top3ElfCalorieTotal);
+        Assert.That(top3ElfCalorieTotal.Equals(206104));
     }
 }
