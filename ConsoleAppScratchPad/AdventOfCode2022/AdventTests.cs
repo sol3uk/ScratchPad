@@ -181,6 +181,6 @@ public class AdventTests
         }
         
         Console.WriteLine("TotalScore : " + totalScore);
-        Assert.That(totalScore.Equals(69));
+        Assert.That(totalScore.Equals(12794));
     }
 }
