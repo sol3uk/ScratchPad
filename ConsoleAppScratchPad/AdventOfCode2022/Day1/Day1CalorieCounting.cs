@@ -14,7 +14,7 @@ public class Day1CalorieCounting
 
     private List<string> GetCalorieList()
     {
-        var fileLines = File.ReadAllLines(System.Environment.CurrentDirectory + @"\PuzzleInput.txt");
+        var fileLines = File.ReadAllLines(System.Environment.CurrentDirectory + @"\Day1\PuzzleInput.txt");
 
         Calories = new List<string>(fileLines);
         
