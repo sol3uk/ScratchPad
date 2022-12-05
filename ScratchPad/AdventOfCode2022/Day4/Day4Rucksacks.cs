@@ -17,20 +17,20 @@ public class Day4CampCleanup
 
     public class Assignment
     {
-        public string Value;
+        private readonly string _value;
 
         public Assignment(string value)
         {
-            Value = value;
+            _value = value;
         }
 
         public int FirstNumber()
         {
-            return int.Parse(Value.Split("-")[0]);
+            return int.Parse(_value.Split("-")[0]);
         }
         public int LastNumber()
         {
-            return int.Parse(Value.Split("-")[1]);
+            return int.Parse(_value.Split("-")[1]);
         }
     }
     
@@ -39,9 +39,9 @@ public class Day4CampCleanup
         SectionAssignments = GetSectionAssignments();
     }
 
-    public List<SectionAssignment> SectionAssignments;
+    public readonly List<SectionAssignment> SectionAssignments;
 
-    private List<SectionAssignment> GetSectionAssignments()
+    private static List<SectionAssignment> GetSectionAssignments()
     {
         var fileLines = File.ReadAllLines(System.Environment.CurrentDirectory + @"\Day4\PuzzleInput.txt");
 
