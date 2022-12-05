@@ -4,6 +4,7 @@ using System.Linq;
 using AdventOfCode2022.Day2;
 using AdventOfCode2022.Day3;
 using AdventOfCode2022.Day4;
+using AdventOfCode2022.Day5;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -402,6 +403,45 @@ public class AdventTests
             }
 
             totalOverlappingPairs.Should().Be(779);
+        }
+    }
+
+    [TestFixture]
+    public class Day5
+    {
+        [Test]
+        public void Day5_Part1()
+        {
+            //https://adventofcode.com/2022/day/5
+            /* The input is a "crate matrix"
+             *     [D]     
+             * [N] [C]     
+             * [Z] [M] [P] 
+             *  1   2   3 
+             */ 
+            // The lower half contains a procedure for moving the crates around
+            // move 1 from 2 to 1
+            // move 3 from 1 to 3
+
+            var puzzleInput = new Day5SupplyStacks();
+            var topOfStacksString = "";
+
+            var crateWarehouse = puzzleInput.CrateMatrix;
+            foreach (var procedure in puzzleInput.Procedures)
+            {
+                for (int i = 0; i < procedure.NumberToMove; i++)
+                {
+                    var movedCrate = crateWarehouse[procedure.SourceColumn].Pop();
+                    crateWarehouse[procedure.DestinationColumn].Push(movedCrate);
+                }
+            }
+
+            foreach (var column in crateWarehouse)
+            {
+                topOfStacksString += column.Value.FirstOrDefault();
+            }
+
+            topOfStacksString.Should().Be("CMZ");
         }
     }
 }
