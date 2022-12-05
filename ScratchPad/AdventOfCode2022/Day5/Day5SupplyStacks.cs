@@ -31,7 +31,7 @@ public class Day5SupplyStacks
             .Where(x => !string.IsNullOrEmpty(x))
             .ToList();
 
-        var cleanRows = fileLines
+        var crateRows = fileLines
             .TakeWhile(x => x.Contains('['))
             .Select(x => x.Chunk(4))
             .Select(x => x.Select(character => string.Join("", character).Trim('[',']',' ')))
@@ -42,9 +42,9 @@ public class Day5SupplyStacks
         {
             var columnCrates = new List<string>();
             var column = columnNumbers[index];
-            for (var i = cleanRows.Length - 1; i >= 0; i--)
+            for (var i = crateRows.Length - 1; i >= 0; i--)
             {
-                var cleanRow = cleanRows[i];
+                var cleanRow = crateRows[i];
                 var row = cleanRow.ToArray();
                 if (!string.IsNullOrWhiteSpace(row[index]))
                     columnCrates.Add(row[index]);

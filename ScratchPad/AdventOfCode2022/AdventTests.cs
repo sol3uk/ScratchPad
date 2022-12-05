@@ -422,6 +422,7 @@ public class AdventTests
             // The lower half contains a procedure for moving the crates around
             // move 1 from 2 to 1
             // move 3 from 1 to 3
+            // After the rearrangement procedure completes, what crate ends up on top of each stack?
 
             var puzzleInput = new Day5SupplyStacks();
             var topOfStacksString = "";
@@ -442,6 +443,47 @@ public class AdventTests
             }
 
             topOfStacksString.Should().Be("FRDSQRRCD");
+        }
+        
+        [Test]
+        public void Day5_Part2()
+        {
+            //https://adventofcode.com/2022/day/5
+            /* The input is a "crate matrix"
+             *     [D]     
+             * [N] [C]     
+             * [Z] [M] [P] 
+             *  1   2   3 
+             */ 
+            // Now the crane has the ability to pick up and move multiple crates at once.
+            // After the rearrangement procedure completes, what crate ends up on top of each stack?
+
+            var puzzleInput = new Day5SupplyStacks();
+            var topOfStacksString = "";
+
+            var crateWarehouse = puzzleInput.CrateMatrix;
+            foreach (var procedure in puzzleInput.Procedures)
+            {
+                var tempStack = new Stack<string>();
+                for (var i = 0; i < procedure.NumberToMove; i++)
+                {
+                    var movedCrate = crateWarehouse[procedure.SourceColumn].Pop();
+                    tempStack.Push(movedCrate);
+                }
+                
+                while(tempStack.Count > 0) 
+                {
+                    var movedCrate = tempStack.Pop();
+                    crateWarehouse[procedure.DestinationColumn].Push(movedCrate);
+                }
+            }
+
+            foreach (var column in crateWarehouse)
+            {
+                topOfStacksString += column.Value.FirstOrDefault();
+            }
+
+            topOfStacksString.Should().Be("HRFTQVWNN");
         }
     }
 }
