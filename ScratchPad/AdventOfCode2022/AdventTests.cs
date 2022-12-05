@@ -360,7 +360,21 @@ public class AdventTests
             var puzzleInput = new Day4CampCleanup();
             var totalFullyContainedPairs = 0;
 
-            totalFullyContainedPairs.Should().Be(2);
+            foreach (var pair in puzzleInput.SectionAssignments)
+            {
+                if (pair.SecondElf.FirstNumber() >= pair.FirstElf.FirstNumber() 
+                    && pair.SecondElf.LastNumber() <= pair.FirstElf.LastNumber())
+                {
+                    totalFullyContainedPairs++;
+                } 
+                else if (pair.FirstElf.FirstNumber() >= pair.SecondElf.FirstNumber() 
+                      && pair.FirstElf.LastNumber() <= pair.SecondElf.LastNumber())
+                {
+                    totalFullyContainedPairs++;
+                }
+            }
+
+            totalFullyContainedPairs.Should().Be(459);
         }
     }
 }
