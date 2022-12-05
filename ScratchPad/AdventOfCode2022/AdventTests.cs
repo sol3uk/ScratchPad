@@ -345,7 +345,7 @@ public class AdventTests
         }
     }
     
-        [TestFixture]
+    [TestFixture]
     public class Day4
     {
         [Test]
@@ -375,6 +375,33 @@ public class AdventTests
             }
 
             totalFullyContainedPairs.Should().Be(459);
+        }
+        
+        [Test]
+        public void Day4_Part2()
+        {
+            //https://adventofcode.com/2022/day/4
+            // each line is a section assignment
+            // the Elves would like to know the number of pairs that overlap at all.
+
+            var puzzleInput = new Day4CampCleanup();
+            var totalOverlappingPairs = 0;
+
+            foreach (var pair in puzzleInput.SectionAssignments)
+            {
+                if (pair.SecondElf.FirstNumber() >= pair.FirstElf.FirstNumber() 
+                    && pair.FirstElf.LastNumber() >= pair.SecondElf.FirstNumber())
+                {
+                    totalOverlappingPairs++;
+                } 
+                else if (pair.FirstElf.FirstNumber() >= pair.SecondElf.FirstNumber() 
+                         && pair.SecondElf.LastNumber() >= pair.FirstElf.FirstNumber())
+                {
+                    totalOverlappingPairs++;
+                }
+            }
+
+            totalOverlappingPairs.Should().Be(779);
         }
     }
 }
