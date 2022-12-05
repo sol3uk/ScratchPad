@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode2022.Day2;
+using AdventOfCode2022.Day3;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace AdventOfCode2022;
@@ -184,7 +186,7 @@ public class AdventTests
         Assert.That(totalScore.Equals(12794));
     }
     
-        [Test]
+    [Test]
     public void Day2_Part2()
     {
         //https://adventofcode.com/2022/day/2
@@ -263,5 +265,34 @@ public class AdventTests
         
         Console.WriteLine("TotalScore : " + totalScore);
         Assert.That(totalScore.Equals(14979));
+    }
+    
+    [Test]
+    public void Day3_Part1()
+    {
+        //https://adventofcode.com/2022/day/3
+        // each line is a rucksack with the string being split in the middle
+        // each side is first and second pouch respectively
+        // case SENSITIVE
+        // Lowercase item types a through z have priorities 1 through 26.
+        // Uppercase item types A through Z have priorities 27 through 52.
+        // Find the item type that appears in both compartments of each rucksack
+        // What is the sum of the priorities of those item types?
+
+        var puzzleInput = new Day3Rucksacks();
+        var sumOfPriorities = 0;
+
+        foreach (var rucksack in puzzleInput.Rucksacks)
+        {
+            var duplicateItem = rucksack.FirstPouch.ToList()
+                .FindAll(x => rucksack.SecondPouch.ToList().Contains(x))
+                .FirstOrDefault().ToString();
+            
+            Assert.That(!string.IsNullOrEmpty(duplicateItem));
+            sumOfPriorities += Day3Rucksacks.GetCharacterPriority(duplicateItem);
+        }
+
+        Assert.That(puzzleInput.Rucksacks != null);
+        sumOfPriorities.Should().Be(8123);
     }
 }
