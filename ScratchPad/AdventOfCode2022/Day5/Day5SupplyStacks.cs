@@ -62,11 +62,9 @@ public class Day5SupplyStacks
 
         var procedures = fileLines
             .SkipWhile(x => !x.Contains("move"))
-            .Select(x => x.Chunk(7))
-            .Select(x => x.Select(character => string.Join("", character)))
-            .Select(x => x.Select(move => move.TrimStart('m','o','v','e','f','r','o','m','t','o').Trim()))
+            .Select(x => x.Split(" "))
             .Select(x => x.ToArray())
-            .Select(x =>  new Procedure(int.Parse(x[0]),x[1], x[2]))
+            .Select(x =>  new Procedure(int.Parse(x[1]),x[3], x[5]))
             .ToList();
 
 

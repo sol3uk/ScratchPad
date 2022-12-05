@@ -429,7 +429,7 @@ public class AdventTests
             var crateWarehouse = puzzleInput.CrateMatrix;
             foreach (var procedure in puzzleInput.Procedures)
             {
-                for (int i = 0; i < procedure.NumberToMove; i++)
+                for (var i = 0; i < procedure.NumberToMove; i++)
                 {
                     var movedCrate = crateWarehouse[procedure.SourceColumn].Pop();
                     crateWarehouse[procedure.DestinationColumn].Push(movedCrate);
@@ -441,7 +441,7 @@ public class AdventTests
                 topOfStacksString += column.Value.FirstOrDefault();
             }
 
-            topOfStacksString.Should().Be("CMZ");
+            topOfStacksString.Should().Be("FRDSQRRCD");
         }
     }
 }
