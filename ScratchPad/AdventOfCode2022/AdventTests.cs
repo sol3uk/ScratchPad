@@ -284,8 +284,8 @@ public class AdventTests
 
         foreach (var rucksack in puzzleInput.Rucksacks)
         {
-            var duplicateItem = rucksack.FirstPouch.ToList()
-                .FindAll(x => rucksack.SecondPouch.ToList().Contains(x))
+            var duplicateItem = rucksack.FirstPouch
+                .Intersect(rucksack.SecondPouch)
                 .FirstOrDefault().ToString();
             
             Assert.That(!string.IsNullOrEmpty(duplicateItem));
@@ -294,5 +294,34 @@ public class AdventTests
 
         Assert.That(puzzleInput.Rucksacks != null);
         sumOfPriorities.Should().Be(8123);
+    }
+    
+    [Test]
+    public void Day3_Part2()
+    {
+        //https://adventofcode.com/2022/day/3
+        // each 3 lines are now "groups"
+        // find the one item type that is common between all three Elves in each group.
+        // Find the item type that corresponds to the badges of each three-Elf group.
+        // What is the sum of the priorities of those item types?
+
+        var puzzleInput = new Day3Rucksacks();
+        var sumOfPriorities = 0;
+
+        foreach (var rucksackGroup in puzzleInput.GetGroups())
+        {
+            var group = rucksackGroup.ToList();
+                var duplicateItem = group[0].WholeBag
+                    .Intersect(group[1].WholeBag)
+                    .Intersect(group[2].WholeBag)
+                    .FirstOrDefault().ToString();
+                
+                Assert.That(!string.IsNullOrEmpty(duplicateItem));
+                sumOfPriorities += Day3Rucksacks.GetCharacterPriority(duplicateItem);
+                
+        }
+
+        Assert.That(puzzleInput.Rucksacks != null);
+        sumOfPriorities.Should().Be(2620);
     }
 }

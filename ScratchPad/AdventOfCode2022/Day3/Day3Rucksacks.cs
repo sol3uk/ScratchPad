@@ -19,7 +19,14 @@ public class Day3Rucksacks
         return ((int) characterEnum + 1);
     }
     
-    public record Rucksack(string FirstPouch, string SecondPouch);
+    public IEnumerable<IEnumerable<Rucksack>> GetGroups()
+    {
+        return Rucksacks.Select((x, idx) => new { x, idx })
+            .GroupBy(x => x.idx / 3)
+            .Select(g => g.Select(a => a.x));
+    }
+    
+    public record Rucksack(string FirstPouch, string SecondPouch, string WholeBag);
     
     public List<Rucksack> Rucksacks;
     
@@ -33,8 +40,8 @@ public class Day3Rucksacks
         var fileLines = File.ReadAllLines(System.Environment.CurrentDirectory + @"\Day3\PuzzleInput.txt");
 
         return fileLines
-            .Select(move => new string[] { move.Substring(0, move.Length / 2) , move.Substring((move.Length / 2))} )
-            .Select(rucksack => new Rucksack(rucksack[0], rucksack[1]))
+            .Select(rucksack => new string[] { rucksack.Substring(0, rucksack.Length / 2) , rucksack.Substring((rucksack.Length / 2))} )
+            .Select(rucksack => new Rucksack(rucksack[0], rucksack[1], rucksack[0] + rucksack[1]))
             .ToList();
     }
 }
