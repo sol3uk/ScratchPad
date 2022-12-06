@@ -5,6 +5,7 @@ using AdventOfCode2022.Day2;
 using AdventOfCode2022.Day3;
 using AdventOfCode2022.Day4;
 using AdventOfCode2022.Day5;
+using AdventOfCode2022.Day6;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -345,7 +346,7 @@ public class AdventTests
             sumOfPriorities.Should().Be(2620);
         }
     }
-    
+
     [TestFixture]
     public class Day4
     {
@@ -363,13 +364,13 @@ public class AdventTests
 
             foreach (var pair in puzzleInput.SectionAssignments)
             {
-                if (pair.SecondElf.FirstNumber() >= pair.FirstElf.FirstNumber() 
+                if (pair.SecondElf.FirstNumber() >= pair.FirstElf.FirstNumber()
                     && pair.SecondElf.LastNumber() <= pair.FirstElf.LastNumber())
                 {
                     totalFullyContainedPairs++;
-                } 
-                else if (pair.FirstElf.FirstNumber() >= pair.SecondElf.FirstNumber() 
-                      && pair.FirstElf.LastNumber() <= pair.SecondElf.LastNumber())
+                }
+                else if (pair.FirstElf.FirstNumber() >= pair.SecondElf.FirstNumber()
+                         && pair.FirstElf.LastNumber() <= pair.SecondElf.LastNumber())
                 {
                     totalFullyContainedPairs++;
                 }
@@ -377,7 +378,7 @@ public class AdventTests
 
             totalFullyContainedPairs.Should().Be(459);
         }
-        
+
         [Test]
         public void Day4_Part2()
         {
@@ -390,12 +391,12 @@ public class AdventTests
 
             foreach (var pair in puzzleInput.SectionAssignments)
             {
-                if (pair.SecondElf.FirstNumber() >= pair.FirstElf.FirstNumber() 
+                if (pair.SecondElf.FirstNumber() >= pair.FirstElf.FirstNumber()
                     && pair.FirstElf.LastNumber() >= pair.SecondElf.FirstNumber())
                 {
                     totalOverlappingPairs++;
-                } 
-                else if (pair.FirstElf.FirstNumber() >= pair.SecondElf.FirstNumber() 
+                }
+                else if (pair.FirstElf.FirstNumber() >= pair.SecondElf.FirstNumber()
                          && pair.SecondElf.LastNumber() >= pair.FirstElf.FirstNumber())
                 {
                     totalOverlappingPairs++;
@@ -418,7 +419,7 @@ public class AdventTests
              * [N] [C]     
              * [Z] [M] [P] 
              *  1   2   3 
-             */ 
+             */
             // The lower half contains a procedure for moving the crates around
             // move 1 from 2 to 1
             // move 3 from 1 to 3
@@ -444,7 +445,7 @@ public class AdventTests
 
             topOfStacksString.Should().Be("FRDSQRRCD");
         }
-        
+
         [Test]
         public void Day5_Part2()
         {
@@ -454,7 +455,7 @@ public class AdventTests
              * [N] [C]     
              * [Z] [M] [P] 
              *  1   2   3 
-             */ 
+             */
             // Now the crane has the ability to pick up and move multiple crates at once.
             // After the rearrangement procedure completes, what crate ends up on top of each stack?
 
@@ -470,8 +471,8 @@ public class AdventTests
                     var movedCrate = crateWarehouse[procedure.SourceColumn].Pop();
                     tempStack.Push(movedCrate);
                 }
-                
-                while(tempStack.Count > 0) 
+
+                while (tempStack.Count > 0)
                 {
                     var movedCrate = tempStack.Pop();
                     crateWarehouse[procedure.DestinationColumn].Push(movedCrate);
@@ -484,6 +485,70 @@ public class AdventTests
             }
 
             topOfStacksString.Should().Be("HRFTQVWNN");
+        }
+    }
+
+    [TestFixture]
+    public class Day6
+    {
+        [Test]
+        public void Day6_Part1()
+        {
+            //https://adventofcode.com/2022/day/6
+            // The signal is a series of seemingly-random characters that the device receives one at a time.
+            // You need to add a subroutine to the device that detects a start-of-packet marker in the datastream.
+            // The start of a packet is indicated by a sequence of four characters that are all different.
+
+            var puzzleInput = new Day6TuningTrouble();
+            var charactersProcessedBeforeMarker = 0;
+            var processedChars = new List<string>();
+            foreach (var c in puzzleInput.DataStreamBuffer.ToCharArray())
+            {
+                var character = c.ToString();
+
+                processedChars.Add(character);
+                charactersProcessedBeforeMarker++;
+
+                if (processedChars.Count < 4) continue;
+
+                if (processedChars.Distinct().Count() == processedChars.Count)
+                {
+                    break;
+                }
+
+                processedChars.RemoveAt(0);
+            }
+
+            charactersProcessedBeforeMarker.Should().Be(1909);
+        }
+
+        [Test]
+        public void Day6_Part2()
+        {
+            //https://adventofcode.com/2022/day/6
+            // A start-of-message marker is just like a start-of-packet marker, except it consists of 14 distinct characters rather than 4.
+
+            var puzzleInput = new Day6TuningTrouble();
+            var charactersProcessedBeforeMarker = 0;
+            var processedChars = new List<string>();
+            foreach (var c in puzzleInput.DataStreamBuffer.ToCharArray())
+            {
+                var character = c.ToString();
+
+                processedChars.Add(character);
+                charactersProcessedBeforeMarker++;
+
+                if (processedChars.Count < 14) continue;
+
+                if (processedChars.Distinct().Count() == processedChars.Count)
+                {
+                    break;
+                }
+
+                processedChars.RemoveAt(0);
+            }
+
+            charactersProcessedBeforeMarker.Should().Be(3380);
         }
     }
 }
