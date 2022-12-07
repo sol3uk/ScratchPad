@@ -13,7 +13,7 @@ public class Day7NoSpaceLeft
     {
         public static List<int> ListOfBelowLimitDirectories = new() { };
 
-        public static List<int> SmallestDirectoriesToDelete = new() { };
+        public static List<int> DeleteableDirectories = new() { };
 
         public Directory(string name, string path)
             : this(name, path, new List<Directory>(), new List<File>())
@@ -60,10 +60,7 @@ public class Day7NoSpaceLeft
                 }
             }
 
-            if (totalSize >= 8381165)
-            {
-                SmallestDirectoriesToDelete.Add(totalSize);
-            }
+            DeleteableDirectories.Add(totalSize);
 
             return totalSize;
         }
@@ -197,7 +194,8 @@ public class Day7
 
         var puzzleInput = new Day7NoSpaceLeft();
 
-        Day7NoSpaceLeft.Directory.GetTotalSizeBelowLimit(puzzleInput.RootDirectory);
+        // I really don't like this, need to improve so it's more relevant & doesn't spit out an int for no reason other than "it's recursive"
+        Day7NoSpaceLeft.Directory.GetTotalSizeBelowLimit(puzzleInput.RootDirectory); 
         var sumOfDirectorySizes = Day7NoSpaceLeft.Directory.ListOfBelowLimitDirectories.Sum(x => x);
 
         sumOfDirectorySizes.Should().Be(1390824);
@@ -215,9 +213,13 @@ public class Day7
 
         var puzzleInput = new Day7NoSpaceLeft();
 
-        Day7NoSpaceLeft.Directory.GetTotalSizeOfDirectory(puzzleInput.RootDirectory);
-        var smallestDirectoryToDelete = Day7NoSpaceLeft.Directory.SmallestDirectoriesToDelete.Min();
+        var totalSizeOfRootDirectory = Day7NoSpaceLeft.Directory.GetTotalSizeOfDirectory(puzzleInput.RootDirectory);
+        var freeSpace = 70000000 - totalSizeOfRootDirectory;
+        var requiredToMeetMinSpace = 30000000 - freeSpace;
+        var smallestDirectoryToDelete = Day7NoSpaceLeft.Directory.DeleteableDirectories
+            .Where(x => x >= requiredToMeetMinSpace)
+            .Min();
 
-        smallestDirectoryToDelete.Should().Be(24933642);
+        smallestDirectoryToDelete.Should().Be(7490863);
     }
 }
