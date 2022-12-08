@@ -14,12 +14,12 @@ public class Day8TreetopTreeHouse
         TreeMatrix = GetTreeMatrix();
     }
 
-    public int[,] TreeMatrix;
+    public readonly int[,] TreeMatrix;
 
     private static int[,] GetTreeMatrix()
     {
         var treeRows =
-            File.ReadAllLines(System.Environment.CurrentDirectory + @"\Day8\PuzzleInput.txt");
+            File.ReadAllLines(Environment.CurrentDirectory + @"\Day8\PuzzleInput.txt");
         var height = treeRows.Length;
         var width = treeRows[0].Length;
         var treeMatrix = new int[width, height];
@@ -37,32 +37,54 @@ public class Day8TreetopTreeHouse
         return treeMatrix;
     }
 
-    public static int[] GetSouthTrees(int y, int[,] input, int x)
+    public static IEnumerable<int> GetSouthTrees(int y, int[,] input, int x)
     {
         return Enumerable.Range(y + 1, input.GetLength(1) - y - 1)
             .Select(yCoord => input[x, yCoord])
             .ToArray();
     }
 
-    public static int[] GetNorthTrees(int y, int[,] input, int x)
+    public static IEnumerable<int> GetNorthTrees(int y, int[,] input, int x)
     {
         return Enumerable.Range(0, y)
             .Select(yCoord => input[x, yCoord])
             .ToArray();
     }
 
-    public static int[] GetEastTrees(int x, int[,] input, int y)
+    public static IEnumerable<int> GetEastTrees(int x, int[,] input, int y)
     {
         return Enumerable.Range(x + 1, input.GetLength(0) - x - 1)
             .Select(xCoord => input[xCoord, y])
             .ToArray();
     }
 
-    public static int[] GetWestTrees(int x, int[,] input, int y)
+    public static IEnumerable<int> GetWestTrees(int x, int[,] input, int y)
     {
         return Enumerable.Range(0, x)
             .Select(xCoord => input[xCoord, y])
             .ToArray();
+    }
+
+    public static int GetTreeScore(IEnumerable<int> treesInDirection, int tree)
+    {
+        var directionScore = 0;
+        foreach (var lst in treesInDirection)
+        {
+            if (lst >= tree)
+            {
+                directionScore++;
+                break;
+            }
+
+            directionScore++;
+        }
+
+        return directionScore;
+    }
+
+    public static bool IsTreeVisibleFromDirection(IEnumerable<int> treesInDirection, int tree)
+    {
+        return !treesInDirection.Any(lst => lst >= tree);
     }
 }
 
@@ -83,13 +105,13 @@ public class Day8
         var puzzleInput = new Day8TreetopTreeHouse();
         var totalVisibleTrees = 0;
         var input = puzzleInput.TreeMatrix;
-        for (int x = 0; x < input.GetLength(0); x++)
+        for (var x = 0; x < input.GetLength(0); x++)
         {
-            for (int y = 0; y < input.GetLength(1); y++)
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
+            for (var y = 0; y < height; y++)
             {
                 var tree = input[x, y];
-                var width = input.GetLength(0);
-                var height = input.GetLength(1);
 
                 if (x == 0 || x == width - 1)
                 {
@@ -101,33 +123,16 @@ public class Day8
                 }
                 else
                 {
-                    var leftSideRow = Day8TreetopTreeHouse.GetWestTrees(x, input, y);
-                    var rightSideRow = Day8TreetopTreeHouse.GetEastTrees(x, input, y);
-                    var topSideColumn = Day8TreetopTreeHouse.GetNorthTrees(y, input, x);
-                    var belowSideColumn = Day8TreetopTreeHouse.GetSouthTrees(y, input, x);
-                    if (!leftSideRow.Any(lst => lst >= tree))
+                    var westTrees = Day8TreetopTreeHouse.GetWestTrees(x, input, y);
+                    var eastTrees = Day8TreetopTreeHouse.GetEastTrees(x, input, y);
+                    var northTrees = Day8TreetopTreeHouse.GetNorthTrees(y, input, x);
+                    var southTrees = Day8TreetopTreeHouse.GetSouthTrees(y, input, x);
+                    if (Day8TreetopTreeHouse.IsTreeVisibleFromDirection(westTrees, tree)
+                        || Day8TreetopTreeHouse.IsTreeVisibleFromDirection(eastTrees, tree)
+                        || Day8TreetopTreeHouse.IsTreeVisibleFromDirection(northTrees, tree)
+                        || Day8TreetopTreeHouse.IsTreeVisibleFromDirection(southTrees, tree))
                     {
-                        Console.WriteLine($"{tree} Visible");
                         totalVisibleTrees++;
-                    }
-                    else if (!rightSideRow.Any(rst => rst >= tree))
-                    {
-                        Console.WriteLine($"{tree} Visible");
-                        totalVisibleTrees++;
-                    }
-                    else if (!topSideColumn.Any(tst => tst >= tree))
-                    {
-                        Console.WriteLine($"{tree} Visible");
-                        totalVisibleTrees++;
-                    }
-                    else if (!belowSideColumn.Any(bst => bst >= tree))
-                    {
-                        Console.WriteLine($"{tree} Visible");
-                        totalVisibleTrees++;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{tree}");
                     }
                 }
             }
@@ -136,7 +141,6 @@ public class Day8
         totalVisibleTrees.Should().Be(1688);
     }
 
-    
 
     [Test]
     public void Part2()
@@ -149,66 +153,39 @@ public class Day8
         var puzzleInput = new Day8TreetopTreeHouse();
         var highestScenicScore = 0;
         var input = puzzleInput.TreeMatrix;
-        for (int x = 0; x < input.GetLength(0); x++)
+        for (var x = 0; x < input.GetLength(0); x++)
         {
-            for (int y = 0; y < input.GetLength(1); y++)
+            var width = input.GetLength(0);
+            var height = input.GetLength(1);
+            for (var y = 0; y < height; y++)
             {
                 var tree = input[x, y];
-                var width = input.GetLength(0);
-                var height = input.GetLength(1);
 
                 if (x == 0 || x == width - 1)
                 {
                     continue;
                 }
-                else if (y == 0 || y == height - 1)
+
+                if (y == 0 || y == height - 1)
                 {
                     continue;
                 }
-                else
-                {
-                    var leftSideRow = Enumerable.Range(0, x)
-                        .Select(xCoord => input[xCoord, y])
-                        .Reverse().ToArray();
-                    var rightSideRow = Enumerable.Range(x + 1, input.GetLength(0) - x - 1)
-                        .Select(xCoord => input[xCoord, y])
-                        .ToArray();
-                    var topSideColumn = Enumerable.Range(0, y)
-                        .Select(yCoord => input[x, yCoord])
-                        .Reverse().ToArray();
-                    var belowSideColumn = Enumerable.Range(y + 1, input.GetLength(1) - y - 1)
-                        .Select(yCoord => input[x, yCoord])
-                        .ToArray();
-                    int leftScore = 0, rightScore = 0, upScore = 0, downScore = 0;
 
-                    leftScore = GetTreeScore(leftSideRow, tree);
-                    rightScore = GetTreeScore(rightSideRow, tree);
-                    upScore = GetTreeScore(topSideColumn, tree);
-                    downScore = GetTreeScore(belowSideColumn, tree);
+                var westTreesInverted = Day8TreetopTreeHouse.GetWestTrees(x, input, y).Reverse().ToArray();
+                var eastTrees = Day8TreetopTreeHouse.GetEastTrees(x, input, y);
+                var northTreesInverted = Day8TreetopTreeHouse.GetNorthTrees(y, input, x).Reverse().ToArray();
+                var southTrees = Day8TreetopTreeHouse.GetSouthTrees(y, input, x);
 
-                    var calculatedScenicScore = leftScore * rightScore * upScore * downScore;
-                    if (calculatedScenicScore > highestScenicScore) highestScenicScore = calculatedScenicScore;
-                }
+                var westScore = Day8TreetopTreeHouse.GetTreeScore(westTreesInverted, tree);
+                var eastScore = Day8TreetopTreeHouse.GetTreeScore(eastTrees, tree);
+                var northScore = Day8TreetopTreeHouse.GetTreeScore(northTreesInverted, tree);
+                var southScore = Day8TreetopTreeHouse.GetTreeScore(southTrees, tree);
+
+                var calculatedScenicScore = westScore * eastScore * northScore * southScore;
+                if (calculatedScenicScore > highestScenicScore) highestScenicScore = calculatedScenicScore;
             }
         }
 
         highestScenicScore.Should().Be(410400);
-    }
-
-    private static int GetTreeScore(int[] treesInDirection, int tree)
-    {
-        var directionScore = 0;
-        foreach (var lst in treesInDirection)
-        {
-            if (lst >= tree)
-            {
-                directionScore++;
-                break;
-            }
-
-            directionScore++;
-        }
-
-        return directionScore;
     }
 }
