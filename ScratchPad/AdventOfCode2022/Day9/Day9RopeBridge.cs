@@ -60,7 +60,7 @@ public class Day9RopeBridge
 }
 
 [TestFixture]
-public class Day8
+public class Day9
 {
     [Test]
     public void Part1()
