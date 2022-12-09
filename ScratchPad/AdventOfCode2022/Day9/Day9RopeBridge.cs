@@ -15,25 +15,25 @@ public class Day9RopeBridge
         public int X { get; set; }
         public int Y { get; set; }
 
-        public Coord GoNorth(int distance)
+        public Coord GoUp(int distance)
         {
             Y += distance;
             return this;
         }
 
-        public Coord GoSouth(int distance)
+        public Coord GoDown(int distance)
         {
             Y -= distance;
             return this;
         }
 
-        public Coord GoEast(int distance)
+        public Coord GoRight(int distance)
         {
             X += distance;
             return this;
         }
 
-        public Coord GoWest(int distance)
+        public Coord GoLeft(int distance)
         {
             X -= distance;
             return this;
