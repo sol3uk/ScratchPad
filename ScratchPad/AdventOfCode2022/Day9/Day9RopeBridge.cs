@@ -12,31 +12,27 @@ public class Day9RopeBridge
 {
     public record Coord(int X, int Y)
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; private set; } = X;
+        public int Y { get; private set; } = Y;
 
-        public Coord GoUp(int distance)
+        public void GoUp(int distance)
         {
             Y += distance;
-            return this;
         }
 
-        public Coord GoDown(int distance)
+        public void GoDown(int distance)
         {
             Y -= distance;
-            return this;
         }
 
-        public Coord GoRight(int distance)
+        public void GoRight(int distance)
         {
             X += distance;
-            return this;
         }
 
-        public Coord GoLeft(int distance)
+        public void GoLeft(int distance)
         {
             X -= distance;
-            return this;
         }
 
         public bool IsAdjacentTo(Coord otherCoord)
@@ -53,6 +49,24 @@ public class Day9RopeBridge
 
             return true;
         }
+
+        private bool IsOnTop(Coord otherCoord)
+        {
+            return this == otherCoord;
+        }
+
+        public void MoveInTurnWith(Coord previousKnot, List<Tuple<int, int>> tailLocations, bool isTail)
+        {
+            if (IsOnTop(previousKnot) || IsAdjacentTo(previousKnot)) return;
+
+            if (previousKnot.X > X) GoRight(1);
+            if (previousKnot.X < X) GoLeft(1);
+
+            if (previousKnot.Y > Y) GoUp(1);
+            if (previousKnot.Y < Y) GoDown(1);
+
+            if (isTail) tailLocations.Add(new(X, Y));
+        }
     };
 
     public record Motion(string Direction, int Distance);
@@ -62,7 +76,7 @@ public class Day9RopeBridge
         RopeMotions = GetMotions();
     }
 
-    private List<Motion> GetMotions()
+    private static List<Motion> GetMotions()
     {
         var fileLines = File.ReadAllLines(Environment.CurrentDirectory + @"\Day9\PuzzleInput.txt");
 
@@ -72,7 +86,7 @@ public class Day9RopeBridge
             .ToList();
     }
 
-    public List<Motion> RopeMotions;
+    public readonly List<Motion> RopeMotions;
 }
 
 [TestFixture]
@@ -213,5 +227,52 @@ public class Day9
 
         var numberOfPositionsTailMoved = tailLocations.Distinct().Count();
         numberOfPositionsTailMoved.Should().Be(5930);
+    }
+
+    [Test]
+    public void Part2()
+    {
+        //https://adventofcode.com/2022/day/9
+        // Rather than two knots, you now must simulate a rope consisting of ten knots.
+        // One knot is still the head of the rope and moves according to the series of motions.
+        // Each knot further down the rope follows the knot in front of it using the same rules as before.
+        
+        var tailLocations = new List<Tuple<int, int>>();
+        var puzzleInput = new Day9RopeBridge();
+        var headLocation = new Coord(0, 0);
+        var tailLocation = new Coord(0, 0);
+        var knotCoordinates = new Dictionary<int, Coord>();
+        const int numberOfExtraKnots = 9;
+        for (var knotNumber = 1; knotNumber <= numberOfExtraKnots; knotNumber++)
+        {
+            knotCoordinates.Add(knotNumber, new Coord(0, 0));
+        }
+
+        foreach (var (direction, distance) in puzzleInput.RopeMotions)
+        {
+            var travelled = 0;
+
+            tailLocations.Add(new Tuple<int, int>(tailLocation.X, tailLocation.Y)); // Initial location
+
+            while (travelled < distance)
+            {
+                if (direction == "U") headLocation.GoUp(1);
+                if (direction == "D") headLocation.GoDown(1);
+                if (direction == "R") headLocation.GoRight(1);
+                if (direction == "L") headLocation.GoLeft(1);
+
+                var previousKnotBuffer = headLocation;
+                foreach (var knot in knotCoordinates)
+                {
+                    knot.Value.MoveInTurnWith(previousKnotBuffer, tailLocations, knot.Key == numberOfExtraKnots);
+                    previousKnotBuffer = knot.Value;
+                }
+
+                travelled++;
+            }
+        }
+
+        var numberOfPositionsTailMoved = tailLocations.Distinct().Count();
+        numberOfPositionsTailMoved.Should().Be(2443);
     }
 }
