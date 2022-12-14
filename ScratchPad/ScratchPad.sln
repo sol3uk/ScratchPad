@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamingServiceTest", "Str
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2022", "AdventOfCode2022\AdventOfCode2022.csproj", "{D3C31C67-F421-4BB7-A6F5-F62F9F9C5C74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGym", "CodeGym\CodeGym.csproj", "{71D72363-ED50-4A99-823E-AAD0BEB1DC77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D3C31C67-F421-4BB7-A6F5-F62F9F9C5C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3C31C67-F421-4BB7-A6F5-F62F9F9C5C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3C31C67-F421-4BB7-A6F5-F62F9F9C5C74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D72363-ED50-4A99-823E-AAD0BEB1DC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D72363-ED50-4A99-823E-AAD0BEB1DC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D72363-ED50-4A99-823E-AAD0BEB1DC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D72363-ED50-4A99-823E-AAD0BEB1DC77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
