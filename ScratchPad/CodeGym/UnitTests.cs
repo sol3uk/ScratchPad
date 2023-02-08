@@ -70,11 +70,11 @@ public class Tests
         Assert.AreEqual(expectedMoves, actualMoves);
     }
 
-    [TestCase(0,"Midnight")]
-    [TestCase(60,"One minute past midnight")]
-    [TestCase(53700,"Five minutes to three")]
-    [TestCase(53708 ,"Four minutes and fifty two seconds to three")]
-    [TestCase(1800,"Half past midnight")]
+    [TestCase(0, "Midnight")]
+    [TestCase(60, "One minute past midnight")]
+    [TestCase(53700, "Five minutes to three")]
+    [TestCase(53708, "Four minutes and fifty two seconds to three")]
+    [TestCase(1800, "Half past midnight")]
     public void FullEnglishTimeTests(int secondsSinceMidnight, string expectedOutput)
     {
         // https://asoscom.atlassian.net/wiki/spaces/CHAS/pages/3928425370/Full+English+Time
@@ -87,10 +87,36 @@ public class Tests
             553700 : Five minutes to three
             53708  : Four minutes and fifty two seconds to three
          */
-        
+
         var actualOutput = FullEnglishTimeKata.GetEnglishTime(secondsSinceMidnight);
 
 
         Assert.AreEqual(expectedOutput, actualOutput);
+    }
+
+    [TestCase("n,s,n,s,n,s,n,s,n,s", 0, 0)]
+    [TestCase("e,w,e,w,e,w,e,w,e,w", 0, 0)]
+    [TestCase("e,e,e,e,e,e,e,e,e,e", 10, 0)]
+    public void CompassTests(string directionsString, int expectedX, int expectedY)
+    {
+        /*
+         given an array of 'n','s','w','e' values, each of which represent a direction you walk in for 1 minutes.
+         You have to work out if you end up back where you started within 10 minutes
+         */
+
+        var directions = directionsString.Split(',').ToList();
+        var actualOutput = CompassKata.GetResultOfWalk(directions);
+
+        Assert.AreEqual((expectedX, expectedY), actualOutput);
+    }
+
+    [TestCase("n,e,s,w,e", "w")]
+    [TestCase("n,n,n,n,e", "w,s,s,s,s")]
+    public void CompassDirectionsTests(string directionsString, string expectedDirections)
+    {
+        var directions = directionsString.Split(',').ToList();
+        var actualOutput = CompassKata.GetDirectionsBack(directions);
+
+        Assert.AreEqual(expectedDirections, actualOutput);
     }
 }
