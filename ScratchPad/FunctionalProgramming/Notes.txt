@@ -1,0 +1,140 @@
+open System
+open System.Globalization
+
+(* 
+    The core abstraction in functional programming is ...* drumrole please *...the function. Most languages have these, 
+    what's the big deal????? Unlike OO which added objects and inheritance, polymorphism to achieve higher levels of abstraction, functional programming
+    emphasises higher order functions. That is functions which can take functions as parameters, return functions and are easily be composed together. 
+    This is achievable C# buts it awkward to do and involves delegates.
+  
+    
+    Let's go through some examples
+*)
+
+
+(* 
+    An Add function. 
+    
+    Note the lack of a return statement. Everything is an expression in functional programming which 
+    means everything can be evaluated to a value. This is in contrast to statements which are often used C style languages
+    which don't need to produce value.
+    
+    Note the type signature. The last type is the output type, any types before the last type is a parameter
+*)
+
+
+
+let add x y = x + y
+
+
+(* 
+    Functions can return other functions
+    
+    Here I've implemented a function that creates and returns a function that adds a constant value to any value you pass
+    into it.
+
+    Some examples of usage
+*)
+let addN xConstant =
+    fun y -> y + xConstant
+
+let add10 = addN 10
+add10 10 // Result 20
+add10 5 // Result  15
+
+
+(* 
+    What if I told you add and addN are identical? They're literally the same function???? Here I'll prove it
+*)
+addN 5 5 //Result 10
+add 5 5 // Result 10
+
+let add10A = add 10 //New function that adds a constant 10
+let add10B = addN 10 //New function that adds a constant 10 
+
+add10A 10 //Result 20
+add10B 10 //Result 20
+
+(*
+    Identical behaviour.
+    
+    This is because of 'currying'. Currying allows you call functions with only some of the parameters, and what's 
+    returned is another function with those parameters "pre-filled in". The function returned will take the parameters
+    you didn't "fill in" as parameters.
+ 
+    Currying implictly converts the add function to addN function behind the scenes.
+    
+    This removes the need for patterns like the builder or factory pattern. Imagine using functions that have 
+    been pre-filled in to return things just as you want them.
+    
+    Demo of currying.
+*)
+
+let add20 = add 20
+
+
+(*
+
+    You can pass in functions to other functions as parameters. Here the dateparse parameter is function being passed in. Currently,
+    i can pass in either american date parsing function or the english date parsing function.
+    
+    In other situations you could imagine passing in pre-filled in functions to emulate factory or a builder pattern here.
+*)
+
+let amercianParse str = DateTime.ParseExact(str, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+let englishParse str = DateTime.ParseExact(str, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+let addNDaysToDate daysToAdd (dateparse: string -> DateTime) datestring  =
+    (dateparse datestring).AddDays daysToAdd
+    
+addNDaysToDate 10 amercianParse "5/10/2010" 
+addNDaysToDate 10 englishParse "10/5/2010" 
+
+(*
+    You can also create "pipeline of functions". Pipelining enables function calls to be chained together as successive operations.
+    This can be used to great effect to create very readable code. This will be used to great effect later.
+*)
+
+let timesTwo x = x * 2
+let addOne x = x + 1
+let divideByTwo x = x / 2
+
+1 |> addOne |> timesTwo |> divideByTwo
+
+
+
+(* 
+   Now enough of functions. How about creating data types for functions to operate on. Most functional languages
+   use algebraic data types. These are simple. There two ways to create new data types.
+   
+   Sum types - The value can be A OR B OR C - Otherwise known as discriminated unions
+   Product Types - The value has to be A and B together.
+   
+   Lets take a look at the first example. We're going to model a currency data type. Since a currency is a single
+   value that could be many different things this would be best modelled as a sum type. IE GBP OR USD
+*)
+
+
+type Currency =
+    | GBP
+    | USD
+    | EUR
+    | PLN 
+
+
+// Use of currency type
+let selectedCurrency = USD
+    
+
+(* 
+   Now we need to model a montary value. For something to be montary we need a currency AND a value. Hence a product type.
+   Lets model this here 
+*)
+
+
+type MonataryAmount = {
+    Currency: Currency
+    Amount: decimal
+}
+
+// Use of monatary value
