@@ -1,4 +1,5 @@
-﻿
+﻿module PartOne
+
 open System
 open System.Globalization
 

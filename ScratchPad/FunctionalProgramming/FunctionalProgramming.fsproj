@@ -7,8 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Library.fs"/>
+        <Compile Include="PartOne.fs" />
+        <Compile Include="PartTwo.fs" />
         <Content Include="Notes.txt" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
 </Project>
