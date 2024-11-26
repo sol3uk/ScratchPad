@@ -55,3 +55,9 @@ Temporary Items
 /Vidly/
 /UdacityScholarship/
 /TracerCafe/
+
+
+# Rust specific
+target/
+**/*.rs.bk
+Cargo.lock
