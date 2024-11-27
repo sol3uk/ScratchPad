@@ -74,28 +74,24 @@ fn construct_node_map(
 }
 
 fn parse_input() -> Vec<String> {
-    // Hardcoded path to the text file
     let file_path = "PuzzleInput.txt";
     let mut file_lines: Vec<String> = Vec::new();
 
-    // Check if the file exists
     if !Path::new(file_path).exists() {
         eprintln!("File '{}' does not exist.", file_path);
         return Vec::new();
     }
 
-    // Open the file and read it line by line
     match File::open(file_path) {
         Ok(file) => {
             let reader: io::BufReader<File> = io::BufReader::new(file);
 
-            // Print each line, preserving formatting
             for line_result in reader.lines() {
                 match line_result {
                     Ok(line) => {
                         // println!("{}", line);
                         file_lines.push(line);
-                    } // Output the line
+                    }
                     Err(err) => eprintln!("Error reading line: {}", err),
                 }
             }
