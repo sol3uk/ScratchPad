@@ -30,14 +30,14 @@ fn main() {
         for instruction in instructions.chars() {
             number_of_steps += 1;
             if instruction == 'L' {
-                print!(
-                    "\rCurrent Node: {:?} Instruction: Turn left, Number of steps: {:?}",
+                println!(
+                    "Current Node: {:?} Instruction: Turn left, Number of steps: {:?}",
                     curent_node, number_of_steps
                 );
                 curent_node = nodes.get(&curent_node).unwrap().left.clone();
             } else if instruction == 'R' {
-                print!(
-                    "\rCurrent Node: {:?} Instruction: Turn right, Number of steps: {:?}",
+                println!(
+                    "Current Node: {:?} Instruction: Turn right, Number of steps: {:?}",
                     curent_node, number_of_steps
                 );
                 curent_node = nodes.get(&curent_node).unwrap().right.clone();
