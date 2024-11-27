@@ -3,11 +3,6 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-#[derive(Debug, Eq, PartialEq, Hash)]
-struct Node {
-    identifier: String,
-}
-
 #[derive(Debug)]
 struct NodeDirections {
     left: String,
@@ -19,35 +14,49 @@ fn main() {
 
     let instruction_spacing_position: Option<usize> =
         file_lines.iter().position(|s| s.trim().is_empty());
-    println!("file_lines: {:?}", file_lines);
     let instructions: &String =
         &file_lines[..instruction_spacing_position.unwrap_or(file_lines.len())][0];
-    let nodes: HashMap<Node, NodeDirections> =
+    let nodes: HashMap<String, NodeDirections> =
         construct_node_map(instruction_spacing_position, &file_lines);
-    println!("instructions: {:?}", instructions);
 
-    for instruction in instructions.chars() {
-        println!("Instruction: {:?}", instruction);
+    // nodes.iter().for_each(|(node, directions)| {
+    //     println!("Node: {:?}, Directions: {:?}", node, directions);
+    // });
+
+    let mut curent_node = "AAA".to_string();
+    let mut number_of_steps = 0;
+
+    while curent_node != "ZZZ" {
+        for instruction in instructions.chars() {
+            number_of_steps += 1;
+            if instruction == 'L' {
+                print!(
+                    "\rCurrent Node: {:?} Instruction: Turn left, Number of steps: {:?}",
+                    curent_node, number_of_steps
+                );
+                curent_node = nodes.get(&curent_node).unwrap().left.clone();
+            } else if instruction == 'R' {
+                print!(
+                    "\rCurrent Node: {:?} Instruction: Turn right, Number of steps: {:?}",
+                    curent_node, number_of_steps
+                );
+                curent_node = nodes.get(&curent_node).unwrap().right.clone();
+            }
+        }
     }
-
-    nodes.iter().for_each(|(node, directions)| {
-        println!("Node: {:?}, Directions: {:?}", node, directions);
-    });
 }
 
 fn construct_node_map(
     instruction_spacing_position: Option<usize>,
     file_lines: &[String],
-) -> HashMap<Node, NodeDirections> {
+) -> HashMap<String, NodeDirections> {
     if let Some(pos) = instruction_spacing_position {
         let raw_nodes: &[String] = &file_lines[pos + 1..];
-        let nodes: HashMap<Node, NodeDirections> = raw_nodes
+        let nodes: HashMap<String, NodeDirections> = raw_nodes
             .iter()
             .map(|line: &String| {
                 let parts: Vec<&str> = line.split(" = ").collect();
-                let node = Node {
-                    identifier: parts[0].to_string(),
-                };
+                let node = parts[0].to_string();
                 let cleaned_parts = parts[1].replace("(", "").replace(")", "");
                 let raw_directions: Vec<&str> = cleaned_parts.split(", ").collect();
                 let directions = NodeDirections {
@@ -84,7 +93,7 @@ fn parse_input() -> Vec<String> {
             for line_result in reader.lines() {
                 match line_result {
                     Ok(line) => {
-                        println!("{}", line);
+                        // println!("{}", line);
                         file_lines.push(line);
                     } // Output the line
                     Err(err) => eprintln!("Error reading line: {}", err),
