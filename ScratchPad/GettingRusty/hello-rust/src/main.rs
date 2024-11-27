@@ -19,12 +19,17 @@ fn main() {
 
     let instruction_spacing_position: Option<usize> =
         file_lines.iter().position(|s| s.trim().is_empty());
-
-    let instructions: &[String] =
-        &file_lines[..instruction_spacing_position.unwrap_or(file_lines.len())].;
+    println!("file_lines: {:?}", file_lines);
+    let instructions: &String =
+        &file_lines[..instruction_spacing_position.unwrap_or(file_lines.len())][0];
     let nodes: HashMap<Node, NodeDirections> =
         construct_node_map(instruction_spacing_position, &file_lines);
     println!("instructions: {:?}", instructions);
+
+    for instruction in instructions.chars() {
+        println!("Instruction: {:?}", instruction);
+    }
+
     nodes.iter().for_each(|(node, directions)| {
         println!("Node: {:?}, Directions: {:?}", node, directions);
     });
