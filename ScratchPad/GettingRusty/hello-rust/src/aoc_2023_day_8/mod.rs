@@ -1,6 +1,6 @@
 ﻿
 #[cfg(test)]
-mod tests {
+pub mod aoc_2023_day_8_tests {
     use std::collections::HashMap;
     use std::fs::File;
     use std::io;
@@ -150,15 +150,17 @@ mod tests {
     }
 
     fn parse_input() -> Vec<String> {
-        let file_path = "src/PuzzleInput.txt";
+        let current_dir = Path::new(file!()).parent().unwrap();
+        let file_name = "PuzzleInput.txt";
         let mut file_lines: Vec<String> = Vec::new();
+        let file_path = current_dir.join(file_name);
 
-        if !Path::new(file_path).exists() {
-            eprintln!("File '{}' does not exist.", file_path);
+        if !Path::new(&file_path).exists() {
+            eprintln!("File '{}' does not exist.", file_name);
             return Vec::new();
         }
 
-        match File::open(file_path) {
+        match File::open(&file_path) {
             Ok(file) => {
                 let reader: io::BufReader<File> = io::BufReader::new(file);
 
