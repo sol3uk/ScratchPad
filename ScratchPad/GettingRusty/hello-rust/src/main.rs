@@ -71,28 +71,64 @@ fn day8_part2() {
         .collect::<Vec<&String>>();
     let mut number_of_steps = 0;
 
-    while !current_nodes.iter().all(|node| node.ends_with("Z")) {
-        for instruction in instructions.chars() {
-            number_of_steps += 1;
+    let mut node_maps: std::collections::HashMap<String, i32> = HashMap::new();
 
+    current_nodes.iter().for_each(|node| {
+        let mut current_node = node.to_string();
+        let starting_node = node.to_string();
+        while !current_node.ends_with("Z") {
+            for instruction in instructions.chars() {
+                number_of_steps += 1;
+                    let left = &nodes.get(&current_node.to_string()).unwrap().left;
+                    let right = &nodes.get(&current_node.to_string()).unwrap().right;
 
-            let new_nodes = current_nodes.iter().fold(Vec::new(), |mut acc, node| {
-                let left = &nodes.get(&node.to_string()).unwrap().left;
-                let right = &nodes.get(&node.to_string()).unwrap().right;
-                if instruction == 'L' {
-                    acc.push(left);
-                } else if instruction == 'R' {
-                    acc.push(right);
-                }
-                acc
-            });
-            println!(
-                "Current Nodes: {:?} Number of steps: {:?}",
-                new_nodes, number_of_steps
-            );
-            current_nodes = new_nodes;
+                    if instruction == 'L' {
+                        current_node = left.to_string();
+                    } else if instruction == 'R' {
+                        current_node = right.to_string();
+                    }
+            }
         }
+        node_maps.insert(starting_node.to_string(), number_of_steps);
+        number_of_steps = 0;
+    });
+
+    let list_of_multiples = &node_maps.iter().map(|(_, &v)| v).collect::<Vec<i32>>();
+    println!("list_of_multiples {:?}", list_of_multiples);
+
+    match lcm_of_array(list_of_multiples) {
+        Some(multiple) => println!("The lowest common multiple is: {}", multiple),
+        None => println!("No common multiple found."),
     }
+}
+
+/// Calculate the Greatest Common Divisor (GCD) using the Euclidean algorithm.
+fn gcd(a: i64, b: i64) -> i64 {
+    let mut x = a.abs();
+    let mut y = b.abs();
+    while y != 0 {
+        let temp = y;
+        y = x % y;
+        x = temp;
+    }
+    x
+}
+
+/// Calculate the Lowest Common Multiple (LCM) of two integers.
+fn lcm(a: i64, b: i64) -> i64 {
+    a.abs() / gcd(a, b) * b.abs()
+}
+
+/// Calculate the LCM of an array of integers.
+fn lcm_of_array(numbers: &[i32]) -> Option<i64> {
+    if numbers.is_empty() {
+        return None;
+    }
+
+    numbers
+        .iter()
+        .map(|&n| n as i64) // Convert to i64 for safe calculations
+        .reduce(lcm)
 }
 
 fn construct_node_map(
