@@ -10,6 +10,11 @@ struct NodeDirections {
 }
 
 fn main() {
+    // day8_part1();
+    day8_part2();
+}
+
+fn day8_part1() {
     let file_lines: Vec<String> = parse_input();
 
     let instruction_spacing_position: Option<usize> =
@@ -23,25 +28,69 @@ fn main() {
     //     println!("Node: {:?}, Directions: {:?}", node, directions);
     // });
 
-    let mut curent_node = "AAA".to_string();
+    let mut current_node = "AAA".to_string();
     let mut number_of_steps = 0;
 
-    while curent_node != "ZZZ" {
+    while current_node != "ZZZ" {
         for instruction in instructions.chars() {
             number_of_steps += 1;
             if instruction == 'L' {
                 println!(
                     "Current Node: {:?} Instruction: Turn left, Number of steps: {:?}",
-                    curent_node, number_of_steps
+                    current_node, number_of_steps
                 );
-                curent_node = nodes.get(&curent_node).unwrap().left.clone();
+                current_node = nodes.get(&current_node).unwrap().left.clone();
             } else if instruction == 'R' {
                 println!(
                     "Current Node: {:?} Instruction: Turn right, Number of steps: {:?}",
-                    curent_node, number_of_steps
+                    current_node, number_of_steps
                 );
-                curent_node = nodes.get(&curent_node).unwrap().right.clone();
+                current_node = nodes.get(&current_node).unwrap().right.clone();
             }
+        }
+    }
+}
+
+fn day8_part2() {
+    let file_lines: Vec<String> = parse_input();
+
+    let instruction_spacing_position: Option<usize> =
+        file_lines.iter().position(|s| s.trim().is_empty());
+    let instructions: &String =
+        &file_lines[..instruction_spacing_position.unwrap_or(file_lines.len())][0];
+    let nodes: HashMap<String, NodeDirections> =
+        construct_node_map(instruction_spacing_position, &file_lines);
+
+    // nodes.iter().for_each(|(node, directions)| {
+    //     println!("Node: {:?}, Directions: {:?}", node, directions);
+    // });
+
+    let mut current_nodes = nodes.iter()
+        .filter(|(node, _)| node.ends_with("A"))
+        .map(|(node, _)| node)
+        .collect::<Vec<&String>>();
+    let mut number_of_steps = 0;
+
+    while !current_nodes.iter().all(|node| node.ends_with("Z")) {
+        for instruction in instructions.chars() {
+            number_of_steps += 1;
+
+
+            let new_nodes = current_nodes.iter().fold(Vec::new(), |mut acc, node| {
+                let left = &nodes.get(&node.to_string()).unwrap().left;
+                let right = &nodes.get(&node.to_string()).unwrap().right;
+                if instruction == 'L' {
+                    acc.push(left);
+                } else if instruction == 'R' {
+                    acc.push(right);
+                }
+                acc
+            });
+            println!(
+                "Current Nodes: {:?} Number of steps: {:?}",
+                new_nodes, number_of_steps
+            );
+            current_nodes = new_nodes;
         }
     }
 }
