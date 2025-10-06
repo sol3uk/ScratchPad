@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="night" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <radialGradient id="pulse" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="rgba(249,115,22,0.6)" />
+      <stop offset="100%" stop-color="rgba(2,6,23,0)" />
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#night)" />
+  <circle cx="1340" cy="340" r="520" fill="url(#pulse)" />
+  <g stroke="rgba(236,72,153,0.45)" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M0 280 Q420 180 840 260 T1920 220" />
+    <path d="M0 620 Q520 520 1040 600 T1920 540" stroke-dasharray="18 24" />
+  </g>
+  <g stroke="rgba(248,250,252,0.35)" stroke-width="3" fill="none">
+    <path d="M120 100 L260 40 L400 120 L540 60 L680 140" />
+    <path d="M1540 960 L1680 900 L1820 960" />
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+[
+  {
+    "id": "aurora-initiative",
+    "title": "The Aurora Initiative",
+    "description": "Humanity's leap beyond the solar frontier, chronicling the crews who seeded the first extrasolar settlements.",
+    "backgroundImage": "/images/aurora-initiative.svg",
+    "primaryColor": "#60a5fa",
+    "events": [
+      {
+        "title": "Launch of the Helios Ark",
+        "description": "A multinational crew departs Earth aboard the Helios Ark, bound for Proxima Centauri b.",
+        "date": "2084-03-17"
+      },
+      {
+        "title": "Stellar Gate Activation",
+        "description": "Engineers deploy the first quantum gate, linking the Sol system with the Aurora Colony in real time.",
+        "date": "2089-11-04"
+      },
+      {
+        "title": "Aurora Council Formed",
+        "description": "Representatives from six colonies ratify the Aurora Accord, establishing a shared charter for expansion.",
+        "date": "2093-07-22"
+      },
+      {
+        "title": "Discovery of the Luminous Reef",
+        "description": "Explorers chart a bioluminescent ecosystem beneath the oceans of Kepler-442b, opening new scientific frontiers.",
+        "date": "2097-05-08"
+      },
+      {
+        "title": "Echoes Protocol Broadcast",
+        "description": "The Initiative transmits the Echoes Protocol, an interstellar distress network safeguarding future voyages.",
+        "date": "2101-10-19"
+      }
+    ]
+  },
+  {
+    "id": "chronorift-saga",
+    "title": "Chronorift Saga",
+    "description": "Time agents defend the timeline against paradoxes unleashed by the rogue collective known as the Riftborn.",
+    "backgroundImage": "/images/chronorift-saga.svg",
+    "primaryColor": "#f97316",
+    "events": [
+      {
+        "title": "First Temporal Breach",
+        "description": "An unauthorized jump in Neo-London triggers cascading anomalies across the 25th century skyline.",
+        "date": "2392-02-01"
+      },
+      {
+        "title": "Riftborn Manifesto",
+        "description": "The Riftborn broadcast their manifesto from the year 3120, vowing to rewrite pivotal historical outcomes.",
+        "date": "2393-06-12"
+      },
+      {
+        "title": "Operation Silver Thread",
+        "description": "Agents Sera Voss and Malik Ibarra reseal seventeen divergent timelines during a 48-hour field sprint.",
+        "date": "2394-09-27"
+      },
+      {
+        "title": "The Parallax Accord",
+        "description": "Warring time-factions agree to the Parallax Accord, placing temporal travel under a unified charter.",
+        "date": "2397-01-14"
+      },
+      {
+        "title": "Arrival of the Future Kin",
+        "description": "Allied descendants from the 33rd century arrive to help neutralize the final Riftborn incursion.",
+        "date": "2401-12-31"
+      }
+    ]
+  }
+]
