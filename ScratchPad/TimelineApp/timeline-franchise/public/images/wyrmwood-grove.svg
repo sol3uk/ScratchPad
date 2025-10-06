@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="canopy" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="50%" stop-color="#166534" />
+      <stop offset="100%" stop-color="#052e16" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#022c22" />
+  <rect width="1200" height="800" fill="url(#canopy)" opacity="0.92" />
+  <g fill="#22c55e" opacity="0.35">
+    <circle cx="180" cy="460" r="220" />
+    <circle cx="520" cy="320" r="160" />
+    <circle cx="900" cy="500" r="240" />
+  </g>
+  <g stroke="#bbf7d0" stroke-width="3" opacity="0.5" fill="none">
+    <path d="M120 700 C280 520 420 500 600 320" />
+    <path d="M1080 700 C860 520 720 500 600 320" />
+  </g>
+</svg>

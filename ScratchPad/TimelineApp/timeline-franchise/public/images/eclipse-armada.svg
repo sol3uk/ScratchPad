@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="flare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="60%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#0b1120" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#0f172a" />
+  <rect width="1200" height="800" fill="url(#flare)" opacity="0.9" />
+  <g fill="#f97316" opacity="0.55">
+    <path d="M150 520 L420 430 L540 470 L280 620 Z" />
+    <path d="M680 280 L1040 220 L1120 340 L720 380 Z" />
+    <path d="M500 660 L860 540 L900 660 L520 720 Z" />
+  </g>
+  <g stroke="#facc15" stroke-width="2" opacity="0.4" fill="none">
+    <circle cx="940" cy="160" r="90" />
+    <circle cx="220" cy="300" r="120" />
+    <circle cx="760" cy="560" r="150" />
+  </g>
+</svg>

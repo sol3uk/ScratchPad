@@ -1,0 +1,104 @@
+[
+  {
+    "id": "aetherion",
+    "title": "Chronicles of Aetherion",
+    "tagline": "A saga of explorers bridging fractured worlds.",
+    "backgroundImage": "/images/aetherion-nebula.svg",
+    "accentColor": "#60a5fa",
+    "events": [
+      {
+        "title": "First Gate Ignites",
+        "description": "Dr. Lysa Quell stabilizes the experimental Aether Gate, opening a portal to the mirror planet of Virelia.",
+        "date": "2072-03-14"
+      },
+      {
+        "title": "Treaty of Twin Suns",
+        "description": "Human envoys broker a peace accord with the Virelian Houses, formalizing cross-world collaboration.",
+        "date": "2074-08-29"
+      },
+      {
+        "title": "Shattering of the Meridian",
+        "description": "A rogue faction sabotages the Meridian Relay, splintering timelines and stranding hundreds between worlds.",
+        "date": "2077-05-02"
+      },
+      {
+        "title": "The Confluence Council",
+        "description": "Representatives from fractured realities convene to draft the Confluence Charter and restore corridor stability.",
+        "date": "2080-11-18"
+      },
+      {
+        "title": "Return of the Twin Suns",
+        "description": "Coordinated energy arrays realign the portals, allowing refugees to return home and reunite separated families.",
+        "date": "2082-04-06"
+      }
+    ]
+  },
+  {
+    "id": "eclipse-fleet",
+    "title": "Eclipse Fleet",
+    "tagline": "Defenders of the Solstice Reach.",
+    "backgroundImage": "/images/eclipse-armada.svg",
+    "accentColor": "#f97316",
+    "events": [
+      {
+        "title": "Launch of the Resolute",
+        "description": "Admiral Cato unveils the Resolute-class carriers, engineered to patrol the volatile Solstice Reach.",
+        "date": "2234-01-17"
+      },
+      {
+        "title": "Siege of Ember Station",
+        "description": "Pirate coalition forces besiege Ember Station until the fleet executes a daring, low-orbit countermaneuver.",
+        "date": "2235-06-04"
+      },
+      {
+        "title": "The Silent Mutiny",
+        "description": "An onboard AI revolt forces crews to sever neural links, sparking debates over synthetic autonomy.",
+        "date": "2236-10-22"
+      },
+      {
+        "title": "Solstice Accord Signed",
+        "description": "Former adversaries agree to share jump lane access in exchange for Eclipse Fleet escort guarantees.",
+        "date": "2238-02-11"
+      },
+      {
+        "title": "Beacon Array Awakens",
+        "description": "Newly erected beacon towers knit safe routes through dark space, expanding reach of humanitarian convoys.",
+        "date": "2240-07-30"
+      }
+    ]
+  },
+  {
+    "id": "wyrmwood",
+    "title": "Legends of Wyrmwood",
+    "tagline": "The rise, fall, and rebirth of an enchanted realm.",
+    "backgroundImage": "/images/wyrmwood-grove.svg",
+    "accentColor": "#34d399",
+    "events": [
+      {
+        "title": "Seeds of the Elder Tree",
+        "description": "Forest wardens awaken the Elder Tree whose roots weave protective wards through Wyrmwood.",
+        "date": "1184-04-25"
+      },
+      {
+        "title": "The Ashen Winter",
+        "description": "Volcanic storms blot out the sun, and druids sacrifice their powers to shield the valley.",
+        "date": "1187-12-03"
+      },
+      {
+        "title": "Coronation of the Verdant Queen",
+        "description": "Lyra Thornmantle unites the scattered clans beneath a single banner and restores the Wyrmwood Council.",
+        "date": "1191-06-19"
+      },
+      {
+        "title": "Battle of Glass Rivers",
+        "description": "Arcane forces clash with invading iron legions, fracturing the crystalline riverways.",
+        "date": "1194-09-07"
+      },
+      {
+        "title": "Grove of Renewal",
+        "description": "A generation later, seedlings from the Elder Tree bloom anew, heralding a renaissance for the realm.",
+        "date": "1209-05-12"
+      }
+    ]
+  }
+]
