@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="nebula" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#6366f1" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </radialGradient>
+    <linearGradient id="stars" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9fafb" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#020617" />
+  <circle cx="800" cy="360" r="640" fill="url(#nebula)" />
+  <g fill="url(#stars)">
+    <circle cx="220" cy="140" r="6" />
+    <circle cx="420" cy="680" r="5" />
+    <circle cx="1200" cy="200" r="8" />
+    <circle cx="1350" cy="540" r="4" />
+    <circle cx="980" cy="760" r="7" />
+  </g>
+</svg>

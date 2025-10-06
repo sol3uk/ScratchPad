@@ -1,0 +1,58 @@
+[
+  {
+    "id": "stellaris-odyssey",
+    "title": "Stellaris Odyssey",
+    "backgroundImage": "/images/stellaris-vista.svg",
+    "summary": "A sweeping space opera following the crew of the starship Horizon as they confront cosmic anomalies and political intrigue.",
+    "events": [
+      {
+        "title": "Launch of the Horizon",
+        "description": "The experimental starship Horizon embarks on its maiden voyage to chart uncharted wormholes.",
+        "date": "2227-03-15"
+      },
+      {
+        "title": "First Contact at Helios Gate",
+        "description": "Captain Lira Sol brokers peace with the crystalline Helian Collective after a tense standoff.",
+        "date": "2228-07-02"
+      },
+      {
+        "title": "Collapse of the Maelstrom Rift",
+        "description": "The Horizon sacrifices its quantum sails to stabilize a collapsing rift threatening inhabited systems.",
+        "date": "2229-11-19"
+      },
+      {
+        "title": "Return to Terra Prime",
+        "description": "After three years missing, the Horizon reappears over Terra Prime carrying a sentient nebula seeking asylum.",
+        "date": "2230-04-08"
+      }
+    ]
+  },
+  {
+    "id": "chronicles-of-avaloria",
+    "title": "Chronicles of Avaloria",
+    "backgroundImage": "/images/avaloria-dawn.svg",
+    "summary": "An epic fantasy saga chronicling the rise of the Mage-Queen Elowen and the unification of the fractured realm of Avaloria.",
+    "events": [
+      {
+        "title": "The Emberfall Prophecy",
+        "description": "Young Elowen discovers the prophecy foretelling a mage who will rekindle the Emberlight and unite the clans.",
+        "date": "1483-10-01"
+      },
+      {
+        "title": "Siege of Frostspire Keep",
+        "description": "Elowen leads a daring assault to reclaim Frostspire from the Wraithbound and secure the northern trade routes.",
+        "date": "1485-02-17"
+      },
+      {
+        "title": "Crowning at the Luminous Well",
+        "description": "The clans pledge fealty as Elowen channels the Emberlight to forge a unified Avalorian covenant.",
+        "date": "1486-06-30"
+      },
+      {
+        "title": "Treaty of Verdant Hollow",
+        "description": "Avaloria signs a historic peace with the Sylvan Courts, ending centuries of forest skirmishes.",
+        "date": "1488-09-12"
+      }
+    ]
+  }
+]

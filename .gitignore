@@ -61,3 +61,10 @@ Temporary Items
 target/
 **/*.rs.bk
 Cargo.lock
+
+# Node / Next.js
+node_modules/
+**/node_modules/
+.next/
+*.log
+/.pnpm-store
