@@ -1,0 +1,35 @@
+[
+  {
+    "id": "aurora-chronicles",
+    "title": "Aurora Chronicles",
+    "tagline": "A century-long saga of explorers stitching time back together.",
+    "backgroundImage": "/images/aurora-chronicles.jpg",
+    "events": [
+      {
+        "title": "The Aurora Expedition Sets Sail",
+        "description": "Captain Lira Solis launches humanity's first expedition to map the temporal seas, departing from the orbital drydock above New Asteria.",
+        "date": "2078-03-14"
+      },
+      {
+        "title": "First Contact with the Tide Wardens",
+        "description": "Navigators encounter the Tide Wardens, enigmatic beings who guard fractured moments in history. A fragile truce allows the crew to continue their mission.",
+        "date": "2081-11-02"
+      },
+      {
+        "title": "Rescue at the Broken Meridian",
+        "description": "Chief engineer Oren Malik reroutes the ship's chronoflux drives to free a lost colony frozen between minutes, saving over 6,000 settlers.",
+        "date": "2087-06-19"
+      },
+      {
+        "title": "The Solstice Accord",
+        "description": "Representatives from twelve worlds convene aboard the Aurora to sign an accord that limits unauthorized timefold experimentation.",
+        "date": "2093-12-21"
+      },
+      {
+        "title": "Return to a Healed Horizon",
+        "description": "After fifteen years, the expedition completes its final map of the stabilized timeline and returns home to a world forever changed by their discoveries.",
+        "date": "2094-05-07"
+      }
+    ]
+  }
+]
